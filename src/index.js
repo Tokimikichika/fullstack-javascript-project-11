@@ -1,60 +1,57 @@
 import 'bootstrap';
 import './styles.scss';
 
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('rss-form');
-    const urlInput = document.getElementById('rss-url');
-    const errorMessage = document.getElementById('error-message');
-    const postsContainer = document.getElementById('posts');
-    const feedsContainer = document.getElementById('feeds');
-  
-    form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        errorMessage.textContent = '';
-    
-        const url = urlInput.value.trim();
-        if (!isValidUrl(url)) {
-            errorMessage.textContent = 'Ресурс не содержит валидный RSS';
-            return;
-        }
-    
-        try {
-            await addFeed(url);
-        } catch (error) {
-            errorMessage.textContent = 'Не удалось загрузить RSS';
-        }
+import * as yup from 'yup';
+import onChange from 'on-change';
+
+const state = {
+  rssLinks: [],
+  form: {
+    url: '',
+    error: null,
+  },
+};
+
+const watchedState = onChange(state, (path, value) => {
+  if (path === 'form.error') {
+    const input = document.getElementById('url-input');
+    const feedback = document.querySelector('.feedback');
+
+    if (input) {
+      if (value) {
+        input.classList.add('is-invalid');
+      } else {
+        input.classList.remove('is-invalid');
+      }
+    }
+
+    if (feedback) {
+      feedback.textContent = value || '';
+    }
+  }
+});
+
+const schema = yup.string().url('Ссылка должна быть валидным URL').required('Ссылка обязательна');
+
+const form = document.querySelector('.rss-form');
+
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+  const url = formData.get('url').trim();
+
+  schema.validate(url)
+    .then((validUrl) => {
+      if (state.rssLinks.includes(validUrl)) {
+        throw new Error('RSS уже существует');
+      }
+      watchedState.form.error = null;
+      watchedState.rssLinks.push(validUrl);
+
+      form.reset();
+      document.getElementById('url-input').focus();
+    })
+    .catch((err) => {
+      watchedState.form.error = err.message;
     });
-  
-    function isValidUrl(string) {
-        try {
-            new URL(string);
-            return true;
-        } catch (_) {
-            return false;
-        }
-    }
-  
-    async function addFeed(url) {
-        const response = await axios.get(`https://api.rss2json.com/v1/api.json?rss_url=${url}`);
-        const feed = response.data.feed;
-        const items = response.data.items;
-    
-        const feedElement = document.createElement('li');
-        feedElement.innerHTML = `<strong>${feed.title}</strong> - ${feed.description}`;
-        const viewButton = document.createElement('button');
-        viewButton.className = 'btn btn-primary btn-sm ml-2';
-        viewButton.textContent = 'Просмотр';
-        viewButton.addEventListener('click', () => showPosts(items));
-        feedElement.appendChild(viewButton);
-        feedsContainer.appendChild(feedElement);
-    }
-  
-    function showPosts(items) {
-        postsContainer.innerHTML = '';
-        items.forEach(item => {
-            const postElement = document.createElement('li');
-            postElement.innerHTML = `<a href="${item.link}" target="_blank">${item.title}</a> - ${item.pubDate}`;
-            postsContainer.appendChild(postElement);
-        });
-    }
 });
