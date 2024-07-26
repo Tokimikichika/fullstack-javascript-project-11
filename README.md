@@ -3,13 +3,15 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/d47f76fc73acae29bed1/test_coverage)](https://codeclimate.com/github/Tokimikichika/fullstack-javascript-project-11/test_coverage)
 
 ```
-npm run build
+git clone 
+```
+```
+npm install
 ```
 
-or
 
 ```
-yarn build
+make 
 ```
 
-to bundle your application
+
