@@ -3,7 +3,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/d47f76fc73acae29bed1/test_coverage)](https://codeclimate.com/github/Tokimikichika/fullstack-javascript-project-11/test_coverage)
 
 ```
-git clone 
+git clone https://github.com/Tokimikichika/fullstack-javascript-project-11.git
 ```
 ```
 npm install
@@ -11,7 +11,7 @@ npm install
 
 
 ```
-make 
+make dev
 ```
 
 
