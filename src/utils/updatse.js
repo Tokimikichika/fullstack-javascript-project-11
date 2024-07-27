@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign */
-// eslint-disable-next-line import/no-extraneous-dependencies
 import _ from 'lodash';
 import fetchData from './fetch.js';
 import getFeedAndPosts from './parser.js';

@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "My project",
+  "description": "My RSS third project for Hexlet School ",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -45,8 +45,6 @@
     "mini-css-extract-plugin": "^2.7.6",
     "postcss-loader": "^7.3.3",
     "prettier": "^3.0.2",
-    "sass": "^1.77.8",
-    "sass-loader": "^14.2.1",
     "style-loader": "^3.3.3",
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4",
