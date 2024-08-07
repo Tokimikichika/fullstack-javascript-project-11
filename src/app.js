@@ -7,6 +7,7 @@ import ru from './locales/ru.js';
 import validateUrl from './utils/validate.js';
 import getFeedAndPosts from './utils/parser.js';
 import updatePosts from './utils/updatse.js';
+import setLocalizedTexts from './localizate.js';
 
 export default () => {
   const elements = {
@@ -23,6 +24,11 @@ export default () => {
     },
     spanSpinner: document.createElement('span'),
     spanLoading: document.createElement('span'),
+    rssTitle: document.querySelector('.display-3'),
+    rssDescription: document.querySelector('.lead'),
+    example: document.querySelector('.text-muted'),
+    feedsTitle: document.querySelector('.feeds-title'),
+    postsTitle: document.querySelector('.posts-title'),
   };
 
   const initialState = {
@@ -46,6 +52,8 @@ export default () => {
     resources: {
       ru,
     },
+  }).then(() => {
+    setLocalizedTexts(elements, i18n);
   });
 
   const watchedState = initView(initialState, elements, i18n);
