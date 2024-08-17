@@ -12,6 +12,6 @@ const setLocalizedTexts = (elements, i18n) => {
 
   if (elements.feedsTitle) elements.feedsTitle.textContent = i18n.t('feeds.title');
   if (elements.postsTitle) elements.postsTitle.textContent = i18n.t('posts.title');
-  };
+};
 
 export default setLocalizedTexts;
