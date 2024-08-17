@@ -12,4 +12,4 @@ npm install
 make dev
 ```
 
-https://fullstack-javascript-project-11-qnms.vercel.app/
+https://vercel.com/nikitas-projects-09319d29/fullstack-javascript-project-11-qnms/2wecxPVFFqajY6XyWXr6zRwo4JBn
